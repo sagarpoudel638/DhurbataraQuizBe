@@ -1,2 +1,3 @@
-# DhurbataraQuizBe
-This is backend of dhurbatara quiz application 
+# cms_be
+
+Admin Dashboard APIs
