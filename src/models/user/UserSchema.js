@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
-    role: {
-      type: String,
-      default: "User",
-    },
     fName: {
       type: String,
       required: true,
@@ -20,25 +16,29 @@ const UserSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      unique: true,
-      index: 1,
       required: true,
+      unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
       required: true,
+      select: false,
     },
-    isVerified: {
+    role: {
       type: String,
-      default: false,
+
+      default: "user",
     },
     refreshJWT: {
       type: String,
       default: "",
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
-export default mongoose.model("User", UserSchema);
+
+
+export const User = mongoose.model("user", UserSchema);
+
+
