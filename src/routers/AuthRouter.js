@@ -4,20 +4,23 @@ import jwt from "jsonwebtoken";
 import { config } from "../config/config.js";
 import { createUser, findUser } from "../models/user/UserModel.js";
 import { authMiddleware } from "../middlewares/Auth.js";
+import { loginValidator, signupValidator } from "../middlewares/joiValidation.js";
 
 export const router = express.Router();
 
 //User registration
-router.post("/signup", async (req, res) => {
+router.post("/signup", signupValidator, async (req, res) => {
     try {
       console.log(req.body);
-      const { fName, lName, email, password, phone } = req.body;
+      const { name, email, password, phoneNumber, profilePicture, role } = req.body;
+
       const salt = await bcrypt.genSalt(10);
       const hashedpassword = await bcrypt.hash(password, salt);
       const userData = await createUser({
-        fName,
-        lName,
-        phone,
+        name,
+        phoneNumber,
+        profilePicture,
+        role,
         email,
         password: hashedpassword,
       });
@@ -41,7 +44,7 @@ router.post("/signup", async (req, res) => {
   });
   //**Login  */
 
-router.post("/login", async (req, res) => {
+router.post("/login", loginValidator, async (req, res) => {
     try {
       const { email, password } = req.body;
       const user = await findUser({ email }, true);
