@@ -14,7 +14,6 @@ const UserSchema = new Schema(
     email: { type: String, required: true, unique: true }, // Unique email address
     phoneNumber: { type: String, match: /^[0-9]{10}$/, sparse: true }, // Optional phone number validation
     password: { type: String, required: true }, // Hashed password
-    profilePicture: { type: String, default: '' }, // URL for profile picture
     role: { type: String, enum: ['student', 'admin'], default: 'student' }, // User role
     isVerified: { type: Boolean, default: false }, // Email verification status
     status: { type: String, enum: ['active', 'inactive'], default: 'active' }, // Account status

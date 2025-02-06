@@ -5,25 +5,36 @@ import { config } from "../config/config.js";
 import { createUser, findUser } from "../models/user/UserModel.js";
 import { authMiddleware } from "../middlewares/Auth.js";
 import { loginValidator, signupValidator } from "../middlewares/joiValidation.js";
-
+import { sendVerificationMail } from "../utils/mailer.js";
 export const router = express.Router();
 
 //User registration
 router.post("/signup", signupValidator, async (req, res) => {
     try {
       console.log(req.body);
-      const { name, email, password, phoneNumber, profilePicture, role } = req.body;
+      const { name, email, password, phoneNumber, role } = req.body;
 
       const salt = await bcrypt.genSalt(10);
       const hashedpassword = await bcrypt.hash(password, salt);
       const userData = await createUser({
         name,
         phoneNumber,
-        profilePicture,
         role,
         email,
         password: hashedpassword,
       });
+      //verfication Token
+      const verificationToken = jwt.sign(
+        { _id: userData._id, email: userData.email, name: userData.name },
+        config.jwtSecret,
+        {
+          expiresIn: "365d",
+        }
+      );
+
+      userData.verificationToken = verificationToken;
+      await userData.save();
+      await sendVerificationMail(email, `url ${verificationToken}`);
       const respObj = {
         status: "success",
         message: "User created successfully!",
@@ -71,7 +82,7 @@ router.post("/login", loginValidator, async (req, res) => {
         const respObj = {
           status: "success",
           message: "Login Successful",
-          data: { user: user.fName, token },
+          data: { user: user.name, token },
         };
         console.log(respObj);
         res.status(200).send(respObj);
