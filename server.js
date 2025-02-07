@@ -3,6 +3,7 @@ import cors from "cors"
 import { connectMongoDB } from "./src/config/dbConfig.js";
 import {config} from "./src/config/config.js"
 import authRouter from "./src/routers/AuthRouter.js"
+import quizRouter from "./src/routers/QuizRouter.js"
 const app = express();
 connectMongoDB();
 
@@ -16,6 +17,7 @@ app.get("/",(req,res) => {
     res.send("running")
 })
 app.use("/api/v1/auth", authRouter);
+app.use("api/v1/quiz",quizRouter)
 
 
 

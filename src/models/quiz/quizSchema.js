@@ -2,12 +2,12 @@ import { Schema, model } from 'mongoose';
 
 const questionSchema = new Schema({
   question: {
-    en: { type: String, required: true },
-    np: { type: String, required: true }
+    en: { type: String, },
+    np: { type: String, }
   },
   options: [{
-    en: { type: String, required: true },
-    np: { type: String, required: true }
+    en: { type: String,  },
+    np: { type: String, }
   }],
   correctAnswer: {
     type: Number,
@@ -29,12 +29,12 @@ const questionSchema = new Schema({
 
 const quizSchema = new Schema({
   title: {
-    en: { type: String, required: true },
-    np: { type: String, required: true }
+    en: { type: String, },
+    np: { type: String,  }
   },
   description: {
-    en: { type: String, required: true },
-    np: { type: String, required: true }
+    en: { type: String,  },
+    np: { type: String,  }
   },
   questions: [questionSchema],
   timeLimit: {

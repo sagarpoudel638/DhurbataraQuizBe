@@ -24,3 +24,53 @@ Content-Type: application/json
   "email" : "johndoe@example.com",
   "password": "securePassword123"
 }
+
+
+# quiz
+
+###
+POST {{rootapi}}/quiz/createquiz
+Content-Type: application/json
+
+{
+  "title": {
+    "en": "General Knowledge Quiz",
+    "np": "सामान्य ज्ञान प्रश्नोत्तरी"
+  },
+  "description": {
+    "en": "Test your knowledge!",
+    "np": "तपाईंको ज्ञान जाँच गर्नुहोस्!"
+  },
+  "questions": [
+    {
+      "question": {
+        "en": "What is the capital of Nepal?",
+        "np": "नेपालको राजधानी के हो?"
+      },
+      "options": [
+        { "en": "Kathmandu", "np": "काठमाडौं" },
+        { "en": "Pokhara", "np": "पोखरा" },
+        { "en": "Biratnagar", "np": "बिराटनगर" },
+        { "en": "Lalitpur", "np": "ललितपुर" }
+      ],
+      "correctAnswer": 0,
+      "points": 5
+    },
+    {
+      "question": {
+        "en": "Which river flows through Kathmandu?",
+        "np": "कुन नदी काठमाडौं हुँदै बग्छ?"
+      },
+      "options": [
+        { "en": "Bagmati", "np": "बागमती" },
+        { "en": "Koshi", "np": "कोशी" },
+        { "en": "Gandaki", "np": "गण्डकी" },
+        { "en": "Karnali", "np": "कर्णाली" }
+      ],
+      "correctAnswer": 0,
+      "points": 3
+    }
+  ],
+  "timeLimit": 600,
+  "createdBy": "63e2c2c47fddc54a91e053a2" 
+}
