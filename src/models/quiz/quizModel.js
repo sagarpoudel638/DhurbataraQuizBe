@@ -6,6 +6,12 @@ export const createQuiz = async (quizData) => {
     console.log(`Quiz created with total marks: ${newQuiz.totalMarks}`);
   };
 
-  export const getQuiz = async(id)=>{
+  export const getQuizbyID = async(id)=>{
     return await Quiz.findById(id);
   }
+
+  export const getallQuiz = async()=>{
+    return await Quiz.find();
+  }
+
+  

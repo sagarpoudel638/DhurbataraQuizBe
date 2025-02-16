@@ -17,7 +17,7 @@ app.get("/",(req,res) => {
     res.send("running")
 })
 app.use("/api/v1/auth", authRouter);
-app.use("api/v1/quiz",quizRouter)
+app.use("/api/v1/quiz",quizRouter)
 
 
 
