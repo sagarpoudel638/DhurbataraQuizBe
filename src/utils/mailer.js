@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 
 // Create the transporter
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
+  host: "smtp.zoho.com.au",
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
